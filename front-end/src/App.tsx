@@ -1,5 +1,12 @@
+import { Box } from '@mui/material';
+import Header from './components/Header';
+
 const App = () => {
-  return <h1>Hello world!</h1>;
+  return (
+    <Box>
+      <Header />
+    </Box>
+  );
 };
 
 export default App;
