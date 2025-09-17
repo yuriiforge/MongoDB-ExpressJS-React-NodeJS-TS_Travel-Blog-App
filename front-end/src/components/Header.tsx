@@ -1,28 +1,30 @@
-import { AppBar, Link, Tab, Tabs, Toolbar } from '@mui/material';
+import { AppBar, Tab, Tabs, Toolbar } from '@mui/material';
 import { ModeOfTravel } from '@mui/icons-material';
 import { useState, type SyntheticEvent } from 'react';
+import { Link } from 'react-router-dom';
 
-const linksArray: string[] = ['Home', 'Diaries', 'Auth'];
+const linksArray: string[] = ['home', 'diaries', 'auth'];
 
 const Header = () => {
-  const [activeLink, setActiveLink] = useState<number | false>(false);
+  const [activeLink, setActiveLink] = useState<number>(0);
 
   const handleChangeLink = (_e: SyntheticEvent, link: number) => {
     setActiveLink(link);
   };
   return (
-    <AppBar sx={{ bgcolor: 'transparent' }}>
+    <AppBar sx={{ bgcolor: 'transparent', position: 'static' }}>
       <Toolbar>
         <ModeOfTravel sx={{ color: 'black' }} />
 
         <Tabs
           value={activeLink}
           onChange={handleChangeLink}
-          component={Link}
           sx={{ ml: 'auto', textDecoration: 'none' }}
         >
           {linksArray.map((link, i) => (
             <Tab
+              component={Link}
+              to={`/${link === 'home' ? '' : link}`}
               sx={{
                 textDecoration: 'none',
                 ':hover': {
