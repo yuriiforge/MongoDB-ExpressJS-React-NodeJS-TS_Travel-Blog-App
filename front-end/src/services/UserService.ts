@@ -1,8 +1,13 @@
 import type { AuthInputs } from '../pages/Auth';
 import axiosClient from './axiosClient';
 
+interface AuthResponse {
+  id: string;
+  message: string;
+}
+
 class UserService {
-  async authRequest(signup: boolean, data: AuthInputs) {
+  async authRequest(signup: boolean, data: AuthInputs): Promise<AuthResponse> {
     try {
       const res = await axiosClient.post(
         `user/${signup ? 'signup' : 'login'}`,

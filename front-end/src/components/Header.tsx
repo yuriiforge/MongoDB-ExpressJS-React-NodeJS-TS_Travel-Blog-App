@@ -2,11 +2,16 @@ import { AppBar, Tab, Tabs, Toolbar } from '@mui/material';
 import { ModeOfTravel } from '@mui/icons-material';
 import { useState, type SyntheticEvent } from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import type { RootState } from '../store';
 
 const linksArray: string[] = ['home', 'diaries', 'auth'];
 
 const Header = () => {
   const [activeLink, setActiveLink] = useState<number>(0);
+
+  const isLoggedIn = useSelector((s: RootState) => s.auth.isLoggedIn);
+  console.log(isLoggedIn);
 
   const handleChangeLink = (_e: SyntheticEvent, link: number) => {
     setActiveLink(link);

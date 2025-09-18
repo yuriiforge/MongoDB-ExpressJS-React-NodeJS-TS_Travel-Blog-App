@@ -1,6 +1,8 @@
 import { Box, Button, FormLabel, TextField, Typography } from '@mui/material';
 import { useState, type ChangeEvent, type FormEvent } from 'react';
 import { userService } from '../services/UserService';
+import { useDispatch } from 'react-redux';
+import { authActions } from '../store/slices/authSlice';
 
 export interface AuthInputs {
   name?: string;
@@ -15,6 +17,7 @@ const AuthPage = () => {
     email: '',
     password: '',
   });
+  const dispatch = useDispatch();
 
   const signOrLogin = isSignup ? 'Sign up' : 'Login';
 
@@ -29,10 +32,13 @@ const AuthPage = () => {
 
     if (isSignup) {
       data = await userService.authRequest(true, inputs);
+      localStorage.setItem('userId', data.id);
+      dispatch(authActions.login());
     }
 
     data = await userService.authRequest(false, inputs);
-    console.log(data);
+    localStorage.setItem('userId', data.id);
+    dispatch(authActions.login());
   };
 
   return (
