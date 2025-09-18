@@ -19,6 +19,7 @@ interface Props {
   location: string;
   image: string;
   date: string;
+  user: string;
 }
 
 export default function DiaryItem({
@@ -27,7 +28,12 @@ export default function DiaryItem({
   location,
   image,
   date,
+  user,
 }: Props) {
+  const isLoggedInUser = (): boolean => {
+    return localStorage.getItem('userId') === user;
+  };
+
   return (
     <Card
       sx={{
@@ -82,14 +88,16 @@ export default function DiaryItem({
           </Typography>
         </Box>
       </CardContent>
-      <CardActions sx={{ marginLeft: 'auto' }}>
-        <IconButton color="warning">
-          <ModeEditOutlineIcon />
-        </IconButton>
-        <IconButton color="error">
-          <DeleteForeverIcon />
-        </IconButton>
-      </CardActions>
+      {isLoggedInUser() && (
+        <CardActions sx={{ marginLeft: 'auto' }}>
+          <IconButton color="warning">
+            <ModeEditOutlineIcon />
+          </IconButton>
+          <IconButton color="error">
+            <DeleteForeverIcon />
+          </IconButton>
+        </CardActions>
+      )}
     </Card>
   );
 }

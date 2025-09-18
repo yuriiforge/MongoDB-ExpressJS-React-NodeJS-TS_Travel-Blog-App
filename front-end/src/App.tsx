@@ -10,6 +10,7 @@ import { Provider } from 'react-redux';
 import { store } from './store';
 import AddPage from './pages/Add';
 import ProfilePage from './pages/Profile';
+import DiaryUpdatePage from './pages/DiaryUpdate';
 
 const router = createBrowserRouter([
   {
@@ -17,6 +18,7 @@ const router = createBrowserRouter([
     children: [
       { path: ROUTES.home, element: <HomePage /> },
       { path: ROUTES.diaries, element: <DiariesPage /> },
+      { path: ROUTES.diariesUpdate, element: <DiaryUpdatePage /> },
       { path: ROUTES.auth, element: <AuthPage /> },
       { path: ROUTES.add, element: <AddPage /> },
       { path: ROUTES.profile, element: <ProfilePage /> },

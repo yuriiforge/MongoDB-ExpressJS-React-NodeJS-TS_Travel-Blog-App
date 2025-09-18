@@ -26,6 +26,7 @@ const DiariesPage = () => {
             date={item.date}
             image={item.image}
             location={item.location}
+            user={item.user._id}
           />
         ))}
     </Box>
