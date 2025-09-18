@@ -8,6 +8,8 @@ import { QueryClientProvider } from '@tanstack/react-query';
 import queryClient from './services/queryClient';
 import { Provider } from 'react-redux';
 import { store } from './store';
+import AddPage from './pages/Add';
+import ProfilePage from './pages/Profile';
 
 const router = createBrowserRouter([
   {
@@ -16,6 +18,8 @@ const router = createBrowserRouter([
       { path: ROUTES.home, element: <HomePage /> },
       { path: ROUTES.diaries, element: <DiariesPage /> },
       { path: ROUTES.auth, element: <AuthPage /> },
+      { path: ROUTES.add, element: <AddPage /> },
+      { path: ROUTES.profile, element: <ProfilePage /> },
     ],
   },
 ]);
