@@ -13,7 +13,21 @@ import EditLocationAltIcon from '@mui/icons-material/EditLocationAlt';
 import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
-export default function DiaryItem() {
+interface Props {
+  title: string;
+  description: string;
+  location: string;
+  image: string;
+  date: string;
+}
+
+export default function DiaryItem({
+  title,
+  description,
+  location,
+  image,
+  date,
+}: Props) {
   return (
     <Card
       sx={{
@@ -37,21 +51,17 @@ export default function DiaryItem() {
             <EditLocationAltIcon />
           </IconButton>
         }
-        title="Shrimp and Chorizo Paella"
-        subheader="September 14, 2016"
+        title={location}
+        subheader={new Date(`${date}`).toLocaleDateString()}
       />
-      <img
-        height="194"
-        src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQXH_vXzgYjUHY2NSWs2t6vR6CpB-g3DqNRFy9e3LYgQ-dw7BiPq43BG38cop9_7vXmfHJ77crkjrh9G15vHKh_eKQAQSI5Yw1xjb_J4pwA2Q"
-        alt="Paella dish"
-      />
+      <img height="194" src={image} alt="Paella dish" />
       <CardContent>
         <Typography
           paddingBlock={1}
           variant="h6"
           sx={{ color: 'text.secondary' }}
         >
-          This impressive paella
+          {title}
         </Typography>
         <hr />
         <Box
@@ -68,18 +78,7 @@ export default function DiaryItem() {
             variant="body2"
             sx={{ color: 'text.secondary' }}
           >
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum,
-            eaque suscipit nihil quas, consequatur vero error assumenda, animi
-            nobis corrupti omnis minima nulla nesciunt obcaecati non
-            necessitatibus? Rerum odio deleniti amet. Quo nostrum et dolorum
-            provident perferendis similique, nam cum quis vero sint nobis
-            recusandae, commodi blanditiis repudiandae incidunt veniam placeat
-            odit distinctio delectus repellendus expedita tempore error, enim
-            consectetur. Esse, quas placeat dolorum sint qui id soluta nostrum.
-            Beatae perferendis in necessitatibus, non debitis ex repudiandae
-            eos, dolore ab facere obcaecati. Expedita maxime recusandae neque
-            quibusdam veritatis numquam ea placeat voluptatibus saepe, ut esse
-            eveniet facilis, nihil reprehenderit explicabo?
+            {description}
           </Typography>
         </Box>
       </CardContent>
