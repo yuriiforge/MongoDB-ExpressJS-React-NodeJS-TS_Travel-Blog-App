@@ -1,9 +1,20 @@
 import { Box, Button, FormLabel, TextField, Typography } from '@mui/material';
 import { useState, type ChangeEvent, type FormEvent } from 'react';
+import { userService } from '../services/UserService';
+
+export interface AuthInputs {
+  name?: string;
+  email: string;
+  password: string;
+}
 
 const AuthPage = () => {
   const [isSignup, setIsSignup] = useState<boolean>(false);
-  const [inputs, setInputs] = useState({ name: '', email: '', password: '' });
+  const [inputs, setInputs] = useState<AuthInputs>({
+    name: '',
+    email: '',
+    password: '',
+  });
 
   const signOrLogin = isSignup ? 'Sign up' : 'Login';
 
@@ -11,8 +22,17 @@ const AuthPage = () => {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    let data;
+
+    if (isSignup) {
+      data = await userService.authRequest(true, inputs);
+    }
+
+    data = await userService.authRequest(false, inputs);
+    console.log(data);
   };
 
   return (
