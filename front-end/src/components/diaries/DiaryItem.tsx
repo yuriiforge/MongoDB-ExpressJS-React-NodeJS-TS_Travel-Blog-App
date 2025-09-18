@@ -8,12 +8,18 @@ import {
   CardActions,
   Typography,
   IconButton,
+  Snackbar,
+  Alert,
 } from '@mui/material';
 import EditLocationAltIcon from '@mui/icons-material/EditLocationAlt';
 import ModeEditOutlineIcon from '@mui/icons-material/ModeEditOutline';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { postsService } from '../../services/PostsService';
 
 interface Props {
+  id: string;
   title: string;
   description: string;
   location: string;
@@ -23,6 +29,7 @@ interface Props {
 }
 
 export default function DiaryItem({
+  id,
   title,
   description,
   location,
@@ -30,8 +37,15 @@ export default function DiaryItem({
   date,
   user,
 }: Props) {
+  const [open, setOpen] = useState<boolean>(false);
+
   const isLoggedInUser = (): boolean => {
     return localStorage.getItem('userId') === user;
+  };
+
+  const handleDelete = async (id: string) => {
+    setOpen(true);
+    await postsService.deletePost(id);
   };
 
   return (
@@ -90,14 +104,28 @@ export default function DiaryItem({
       </CardContent>
       {isLoggedInUser() && (
         <CardActions sx={{ marginLeft: 'auto' }}>
-          <IconButton color="warning">
+          <IconButton component={Link} to={`/diaries/${id}`} color="warning">
             <ModeEditOutlineIcon />
           </IconButton>
-          <IconButton color="error">
+          <IconButton onClick={() => handleDelete(id)} color="error">
             <DeleteForeverIcon />
           </IconButton>
         </CardActions>
       )}
+
+      <Snackbar
+        open={open}
+        autoHideDuration={6000}
+        onClose={() => setOpen(false)}
+      >
+        <Alert
+          onClose={() => setOpen(false)}
+          severity="success"
+          sx={{ width: '100%' }}
+        >
+          This is a success message
+        </Alert>
+      </Snackbar>
     </Card>
   );
 }

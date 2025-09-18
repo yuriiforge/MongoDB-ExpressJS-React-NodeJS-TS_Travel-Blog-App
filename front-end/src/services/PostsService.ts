@@ -6,15 +6,7 @@ interface PostsResponse {
   posts: Post[];
 }
 
-interface AddPostResponse {
-  post: Post;
-}
-
-interface GetPostResponse {
-  post: Post;
-}
-
-interface UpdatePostResponse {
+interface PostResponse {
   post: Post;
 }
 
@@ -31,9 +23,9 @@ class PostsService {
     }
   }
 
-  async addPost(data: AddPostInputs): Promise<AddPostResponse> {
+  async addPost(data: AddPostInputs): Promise<PostResponse> {
     try {
-      const res = await axiosClient.post<AddPostResponse>('posts', {
+      const res = await axiosClient.post<PostResponse>('posts', {
         title: data.title,
         description: data.description,
         location: data.location,
@@ -50,9 +42,9 @@ class PostsService {
     }
   }
 
-  async getPostDetails(id: string): Promise<GetPostResponse> {
+  async getPostDetails(id: string): Promise<PostResponse> {
     try {
-      const res = await axiosClient.get<GetPostResponse>(`posts/${id}`);
+      const res = await axiosClient.get<PostResponse>(`posts/${id}`);
 
       const data = res.data;
       return data;
@@ -65,15 +57,26 @@ class PostsService {
   async updatePost(
     id: string,
     data: Partial<AddPostInputs>
-  ): Promise<UpdatePostResponse> {
+  ): Promise<PostResponse> {
     try {
-      const res = await axiosClient.put<UpdatePostResponse>(`posts/${id}`, {
+      const res = await axiosClient.put<PostResponse>(`posts/${id}`, {
         title: data.title,
         description: data.description,
         location: data.location,
         image: data.imageUrl,
         date: data.date,
       });
+
+      return res.data;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
+
+  async deletePost(id: string) {
+    try {
+      const res = await axiosClient.delete(`posts/${id}`);
 
       return res.data;
     } catch (error) {

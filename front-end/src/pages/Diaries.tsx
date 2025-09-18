@@ -21,6 +21,7 @@ const DiariesPage = () => {
         data.map((item) => (
           <DiaryItem
             key={item._id}
+            id={item._id}
             title={item.title}
             description={item.description}
             date={item.date}
