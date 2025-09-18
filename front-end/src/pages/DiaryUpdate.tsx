@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { postsService } from '../services/PostsService';
-import { useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import { Box, Typography, FormLabel, TextField, Button } from '@mui/material';
 import TravelExploreIcon from '@mui/icons-material/TravelExplore';
 import { useEffect, useState, type ChangeEvent, type FormEvent } from 'react';
@@ -8,6 +8,7 @@ import type { AddPostInputs } from './Add';
 
 const DiaryUpdatePage = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const { data } = useQuery({
     queryKey: ['post'],
@@ -42,6 +43,7 @@ const DiaryUpdatePage = () => {
     e.preventDefault();
 
     await postsService.updatePost(id!, inputs);
+    navigate('/');
   };
   return (
     <Box display="flex" flexDirection="column" width="100%" height="100%">

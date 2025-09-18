@@ -3,6 +3,7 @@ import { useState, type ChangeEvent, type FormEvent } from 'react';
 import { userService } from '../services/UserService';
 import { useDispatch } from 'react-redux';
 import { authActions } from '../store/slices/authSlice';
+import { useNavigate } from 'react-router-dom';
 
 export interface AuthInputs {
   name?: string;
@@ -18,6 +19,7 @@ const AuthPage = () => {
     password: '',
   });
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const signOrLogin = isSignup ? 'Sign up' : 'Login';
 
@@ -32,13 +34,13 @@ const AuthPage = () => {
 
     if (isSignup) {
       data = await userService.authRequest(true, inputs);
-      localStorage.setItem('userId', data.id);
-      dispatch(authActions.login());
+    } else {
+      data = await userService.authRequest(false, inputs);
     }
 
-    data = await userService.authRequest(false, inputs);
     localStorage.setItem('userId', data.id);
     dispatch(authActions.login());
+    navigate('/');
   };
 
   return (

@@ -26,6 +26,18 @@ class UserService {
       throw error;
     }
   }
+
+  async getUserDetails() {
+    try {
+      const id = localStorage.getItem('userId');
+      const res = await axiosClient.get(`user/${id}`);
+
+      return res.data;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
 }
 
 export const userService = new UserService();

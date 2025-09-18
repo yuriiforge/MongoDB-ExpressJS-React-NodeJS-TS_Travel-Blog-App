@@ -2,6 +2,7 @@ import { Box, Button, FormLabel, TextField, Typography } from '@mui/material';
 import TravelExporeIcon from '@mui/icons-material/TravelExplore';
 import { useState, type ChangeEvent, type FormEvent } from 'react';
 import { postsService } from '../services/PostsService';
+import { useNavigate } from 'react-router';
 
 export interface AddPostInputs {
   title: string;
@@ -12,6 +13,8 @@ export interface AddPostInputs {
 }
 
 const AddPage = () => {
+  const navigate = useNavigate();
+
   const [inputs, setInputs] = useState<AddPostInputs>({
     title: '',
     description: '',
@@ -28,6 +31,7 @@ const AddPage = () => {
     e.preventDefault();
 
     await postsService.addPost(inputs);
+    navigate('/');
   };
 
   return (
