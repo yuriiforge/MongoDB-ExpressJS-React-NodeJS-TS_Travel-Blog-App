@@ -21,8 +21,6 @@ const Profile = () => {
     getUserDetails();
   }, []);
 
-  console.log(user);
-
   const handleClick = () => {
     dispatch(authActions.logout());
     localStorage.removeItem('userId');
